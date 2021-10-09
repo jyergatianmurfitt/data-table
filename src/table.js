@@ -1,39 +1,42 @@
 import React from 'react'
 import { Icon, Label, Menu, Table } from 'semantic-ui-react'
+import axios from 'axios';
 
-const TableExamplePagination = () => (
-  <Table celled>
-    <Table.Header>
-      <Table.Row>
-        <Table.HeaderCell>Header</Table.HeaderCell>
-        <Table.HeaderCell>Header</Table.HeaderCell>
-        <Table.HeaderCell>Header</Table.HeaderCell>
-        <Table.HeaderCell>Header</Table.HeaderCell>
-      </Table.Row>
-    </Table.Header>
+const url = 'https://mindfuleducation-cdn.s3.eu-west-1.amazonaws.com/misc/data.json';
 
-    <Table.Body>
-      <Table.Row>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-      </Table.Row>
-    </Table.Body>
+const Colleges = () => {
+  const [college, setCollege] = React.useState(null);
 
-  </Table>
-)
+  React.useEffect(() => {
+    axios.get(url).then((response) => {
+      setCollege(response.data);
+    });
+  }, []);
+  if(!college) return null;
 
-export default TableExamplePagination
+  return (
+    <div>
+      <Table celled>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Partner</Table.HeaderCell>
+            <Table.HeaderCell>Prefix</Table.HeaderCell>
+            <Table.HeaderCell>Logo/Preroll</Table.HeaderCell>
+            <Table.HeaderCell>Ofsted Rating</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+
+        <Table.Body>
+          <Table.Row>
+            <Table.Cell>{college.getColleges[0].name}</Table.Cell>
+            <Table.Cell>{college.getColleges[0].groupPrefix}</Table.Cell>
+            <Table.Cell>{college.getColleges[0].logo}</Table.Cell>
+            <Table.Cell>{college.getColleges[0].ofstedRating}</Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
+    </div>
+  );
+}
+
+export default Colleges

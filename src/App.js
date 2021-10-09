@@ -1,9 +1,9 @@
-import TableExamplePagination from './table';
+import Colleges from './table';
 
 function App() {
   return (
     <div className="App">
-      <TableExamplePagination></TableExamplePagination>
+      <Colleges></Colleges>
     </div>
   );
 }
