@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { Icon, Label, Menu, Table, Image } from 'semantic-ui-react'
 import axios from 'axios';
@@ -27,7 +28,18 @@ const Colleges = () => {
         </Table.Header>
 
         <Table.Body>
-          {college.getColleges.map(d => (<Table.Row><Table.Cell>{d.name}</Table.Cell><Table.Cell>{d.groupPrefix}</Table.Cell><Table.Cell><Image src={d.logo} size='tiny'/></Table.Cell><Table.Cell>{d.ofstedRating}</Table.Cell></Table.Row>))}
+          {college.getColleges.map(d => (
+            <Table.Row>
+            <Table.Cell>{d.name}</Table.Cell>
+            <Table.Cell>{d.groupPrefix}</Table.Cell>
+            <Table.Cell><Image src={d.logo} size='tiny'/></Table.Cell>
+            {d.ofstedRating == 'Good' || d.ofstedRating == 'Outstanding' ?
+              <Table.Cell positive>{d.ofstedRating}</Table.Cell> :
+              d.ofstedRating == 'Inadequate' ?
+              <Table.Cell negative>{d.ofstedRating}</Table.Cell> :
+              <Table.Cell warning>{d.ofstedRating}</Table.Cell>}
+            </Table.Row>
+          ))}
         </Table.Body>
       </Table>
     </div>
