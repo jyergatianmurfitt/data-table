@@ -27,12 +27,7 @@ const Colleges = () => {
         </Table.Header>
 
         <Table.Body>
-          <Table.Row>
-            <Table.Cell>{college.getColleges[0].name}</Table.Cell>
-            <Table.Cell>{college.getColleges[0].groupPrefix}</Table.Cell>
-            <Table.Cell>{college.getColleges[0].logo}</Table.Cell>
-            <Table.Cell>{college.getColleges[0].ofstedRating}</Table.Cell>
-          </Table.Row>
+          {college.getColleges.map(d => (<Table.Row><Table.Cell>{d.name}</Table.Cell><Table.Cell>{college.getColleges[0].groupPrefix}</Table.Cell><Table.Cell>{college.getColleges[0].logo}</Table.Cell><Table.Cell>{college.getColleges[0].ofstedRating}</Table.Cell></Table.Row>))}
         </Table.Body>
       </Table>
     </div>
