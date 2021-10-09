@@ -32,7 +32,7 @@ const Colleges = () => {
             <Table.Row>
             <Table.Cell>{d.name}</Table.Cell>
             <Table.Cell>{d.groupPrefix}</Table.Cell>
-            <Table.Cell><Image src={d.logo} size='tiny'/></Table.Cell>
+            <Table.Cell><Image src={d.logo} size='tiny' centered/></Table.Cell>
             {d.ofstedRating == 'Good' || d.ofstedRating == 'Outstanding' ?
               <Table.Cell positive>{d.ofstedRating}</Table.Cell> :
               d.ofstedRating == 'Inadequate' ?
