@@ -1,20 +1,14 @@
+
+
 import _ from 'lodash'
 import React from 'react'
 import { Table, Image } from 'semantic-ui-react'
 import axios from 'axios';
 
 const url = 'https://mindfuleducation-cdn.s3.eu-west-1.amazonaws.com/misc/data.json';
-let tableData = [];
 
 
-axios.get(url).then((response) => {
-  response.data.getColleges.forEach((item, i) => {
-    tableData.push(item)
-  });
-});
-
-
-function exampleReducer(state, action) {
+const reducer = (state, action) => {
   switch (action.type) {
     case 'CHANGE_SORT':
       if (state.column === action.column) {
@@ -38,12 +32,20 @@ function exampleReducer(state, action) {
 
 
 const Colleges = () => {
-  const [state, dispatch] = React.useReducer(exampleReducer, {
+  let tableData = [];
+  axios.get(url).then((response) => {
+    response.data.getColleges.forEach((item, i) => {
+      tableData.push(item)
+    });
+  });
+
+
+  const [state, dispatch] = React.useReducer(reducer, {
     column: null,
     data: tableData,
     direction: null,
   })
-  const { column, data, direction } = state
+  const { column, data, direction } = state;
 
 
   return (
@@ -63,9 +65,7 @@ const Colleges = () => {
           <Table.HeaderCell>
             Logo/Preroll
           </Table.HeaderCell>
-          <Table.HeaderCell
-            sorted={column === 'OfstedRating' ? direction : null}
-            onClick={() => dispatch({ type: 'CHANGE_SORT', column: 'OfstedRating' })}>
+          <Table.HeaderCell>
             Ofsted Rating
           </Table.HeaderCell>
         </Table.Row>
