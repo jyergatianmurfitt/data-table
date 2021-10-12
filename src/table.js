@@ -1,10 +1,18 @@
-
 import _ from 'lodash'
 import React from 'react'
 import { Table, Image } from 'semantic-ui-react'
 import axios from 'axios';
 
 const url = 'https://mindfuleducation-cdn.s3.eu-west-1.amazonaws.com/misc/data.json';
+let tableData = [];
+
+
+axios.get(url).then((response) => {
+  response.data.getColleges.forEach((item, i) => {
+    tableData.push(item)
+  });
+});
+
 
 function exampleReducer(state, action) {
   switch (action.type) {
@@ -28,24 +36,14 @@ function exampleReducer(state, action) {
   }
 }
 
+
 const Colleges = () => {
-  let tableData;
   const [state, dispatch] = React.useReducer(exampleReducer, {
     column: null,
     data: tableData,
     direction: null,
   })
   const { column, data, direction } = state
-
-
-  const [college, setCollege] = React.useState(null);
-  React.useEffect(() => {
-    axios.get(url).then((response) => {
-      setCollege(response.data);
-    });
-  }, []);
-  if(!college) return null;
-  tableData = college.getColleges;
 
 
   return (
@@ -73,7 +71,7 @@ const Colleges = () => {
         </Table.Row>
       </Table.Header>
       <Table.Body>
-      {tableData.map(d => (
+      {data.map(d => (
           <Table.Row key={d.name}>
           <Table.Cell>{d.name}</Table.Cell>
           <Table.Cell>{d.groupPrefix}</Table.Cell>
