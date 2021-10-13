@@ -1,5 +1,6 @@
 
 
+
 import _ from 'lodash'
 import React from 'react'
 import { Table, Image } from 'semantic-ui-react'
@@ -33,19 +34,21 @@ const reducer = (state, action) => {
 
 const Colleges = () => {
   let tableData = [];
-  axios.get(url).then((response) => {
-    response.data.getColleges.forEach((item, i) => {
-      tableData.push(item)
-    });
-  });
+    React.useEffect(() => {
+     axios.get(url).then((response) => {
+       response.data.getColleges.forEach((item, i) => {
+         tableData.push(item)
+       });
+     });
+   }, []);
 
 
-  const [state, dispatch] = React.useReducer(reducer, {
-    column: null,
-    data: tableData,
-    direction: null,
-  })
-  const { column, data, direction } = state;
+    const [state, dispatch] = React.useReducer(reducer, {
+      column: null,
+      data: tableData,
+      direction: null,
+    })
+    const { column, data, direction } = state;
 
 
   return (
